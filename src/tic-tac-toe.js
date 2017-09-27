@@ -1,7 +1,7 @@
 class TicTacToe {
     constructor() {
-        var currSym = 'x';
-        var fieldValue = [
+        this.currSym = 'x';
+        this.fieldValue = [
             [null, null, null],
             [null, null, null],
             [null, null, null]
@@ -13,8 +13,10 @@ class TicTacToe {
     }
 
     nextTurn(rowIndex, columnIndex) {
+        if (this.fieldValue[rowIndex][columnIndex] == null) {
         this.fieldValue[rowIndex][columnIndex] = this.currSym;
-        (this.currSym == 'x')?(this.currSym = 'o'):(this.currSym = 'x');        
+        (this.currSym == 'x')?(this.currSym = 'o'):(this.currSym = 'x');   
+        }    
     }
 
     isFinished() {
@@ -24,29 +26,42 @@ class TicTacToe {
     getWinner() {
         var winner = null;
         for (var i = 0; i<3; i++){
-            if(this.fieldValue[i][0] !== null) &&
+            if((this.fieldValue[i][0] !== null) &&
               (this.fieldValue[i][0] == this.fieldValue[i][1]) &&
-              (this.fieldValue[i][0] == this.fieldValue[i][2]) {
+              (this.fieldValue[i][0] == this.fieldValue[i][2])) {
                 winner = this.fieldValue[i][0];
             }  
         }
         
         for (var j = 0; j<3; j++){
-            if(this.fieldValue[0][j] !== null) &&
-              (this.fieldValue[0][j] == this.fieldValue[0][j]) &&
-              (this.fieldValue[0][j] == this.fieldValue[0][j]) {
+            if((this.fieldValue[0][j] !== null) &&
+              (this.fieldValue[0][j] == this.fieldValue[1][j]) &&
+              (this.fieldValue[0][j] == this.fieldValue[2][j])) {
                 winner = this.fieldValue[0][j];
             }
         }
+
+        if((this.fieldValue[0][0] !== null) &&
+              (this.fieldValue[0][0] == this.fieldValue[1][1]) &&
+              (this.fieldValue[0][0] == this.fieldValue[2][2])) {
+                winner = this.fieldValue[0][0];
+            }
+
+        if((this.fieldValue[0][2] !== null) &&
+              (this.fieldValue[0][2] == this.fieldValue[1][1]) &&
+              (this.fieldValue[0][2] == this.fieldValue[2][0])) {
+                winner = this.fieldValue[0][2];
+            }
+
         return winner;
     }
 
     noMoreTurns() {
         var ans = true;
         for (var i = 0; i<3; i++){
-	        for (var j = 0; j<3; j++){
-	            if(this.fieldValue[i][j] == null) {
-	                ans = false;
+            for (var j = 0; j<3; j++){
+                if(this.fieldValue[i][j] == null) {
+                    ans = false;
                 }
             }
         }
